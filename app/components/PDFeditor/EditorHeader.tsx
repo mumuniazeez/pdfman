@@ -12,7 +12,7 @@ import { Button } from "../ui/button";
 
 export default function EditorHeader() {
   return (
-    <header className="px-2 py-3 border-border border-2">
+    <header className="px-3 py-2 border-border border-2 bg-accent">
       <div className="flex items-center justify-between">
         <div className="flex items-center justify-center gap-x-3">
           <div className="flex items-center gap-x-3">
