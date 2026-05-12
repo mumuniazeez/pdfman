@@ -4,9 +4,9 @@ import PagesViewerSidebar from "~/components/PDFeditor/PagesViewerSidebar";
 
 export default function EditorPage() {
   return (
-    <div className="h-screen overflow-hiden flex flex-col">
+    <div className="h-screen overflow-hidden flex flex-col">
       <EditorHeader />
-      <div className="flex overflow-hidden">
+      <div className="flex-1 flex overflow-hidden">
         <PagesViewerSidebar />
       </div>
       <div className="border-border border-2 flex items-center justify-between py-1 px-2">
