@@ -1,11 +1,10 @@
-import React from "react";
 import { Button } from "../ui/button";
 import PageCard from "./PageCard";
 
 export default function PagesViewerSidebar() {
   return (
-    <div className="w-[20%] h-full overflow-y-auto flex flex-col">
-      <div className="bg-accent border-2 border-border flex items-center justify-between p-2 sticky top-0">
+    <div className="w-full h-full overflow-y-auto flex flex-col">
+      <div className="bg-accent/60 border-2 border-border flex items-center justify-between p-2 sticky top-0">
         <p className="text-zinc-400 text-xs">Page (3)</p>
         <Button variant={"ghost"} className="text-primary font-medium">
           + Add

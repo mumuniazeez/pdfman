@@ -2,17 +2,17 @@ import React from "react";
 import { Separator } from "../ui/separator";
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
-  Cursor,
   Download,
   Plus,
   Redo02FreeIcons,
   Undo02FreeIcons,
 } from "@hugeicons/core-free-icons";
 import { Button } from "../ui/button";
+import ToolBar from "./ToolBar";
 
 export default function EditorHeader() {
   return (
-    <header className="px-3 py-2 border-border border-2 bg-accent">
+    <header className="px-3 py-2 border-border border-2 bg-accent/60">
       <div className="flex items-center justify-between">
         <div className="flex items-center justify-center gap-x-3">
           <div className="flex items-center gap-x-3">
@@ -27,29 +27,7 @@ export default function EditorHeader() {
             <p className="text-sm text-zinc-400">3 pages</p>
           </div>
         </div>
-        <div className="bg-zinc-900  flex items-center justify-between gap-x-3 px-0.5 py-0.5">
-          <Button
-            variant={"ghost"}
-            className="flex-col h-fit w-fit p-2 text-zinc-400"
-          >
-            <HugeiconsIcon icon={Cursor} />
-            <span className="text-sm font-medium">Select</span>
-          </Button>
-          <Button
-            variant={"default"}
-            className="flex-col h-fit w-fit p-2 text-white"
-          >
-            <HugeiconsIcon icon={Cursor} />
-            <span className="text-sm font-medium">Select</span>
-          </Button>
-          <Button
-            variant={"ghost"}
-            className="flex-col h-fit w-fit p-2 text-zinc-400"
-          >
-            <HugeiconsIcon icon={Cursor} />
-            <span className="text-sm font-medium">Select</span>
-          </Button>
-        </div>
+        <ToolBar />
         <div className=" flex items-center justify-between gap-x-3">
           <Button variant={"ghost"} size={"icon"} className="text-zinc-400">
             <HugeiconsIcon icon={Undo02FreeIcons} />
