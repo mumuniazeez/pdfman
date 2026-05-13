@@ -1,9 +1,11 @@
 import React from "react";
+import { usePDFFileContext } from "~/contexts/PDFFilePRovider";
 
 export default function PageViewer() {
+  const { canvasRef } = usePDFFileContext();
   return (
     <div>
-      <img src="/pdf_screenshot.png" alt="Page 1 preview" />
+      <canvas className="border border-border" ref={canvasRef}></canvas>
     </div>
   );
 }
