@@ -17,24 +17,26 @@ import {
 } from "../ui/select";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import { useToolbarContext } from "~/contexts/ToolbarProvider";
 
 export default function ToolPanelSidebar() {
+  const { currentTool } = useToolbarContext();
   return (
     <div className="w-full h-full overflow-y-auto flex flex-col">
       <div className="bg-accent/60 border-2 border-border flex items-center gap-x-2 gap-y-2 p-3 sticky top-0">
-        <HugeiconsIcon icon={Cursor} />
-        <p className="text-zinc-400 font-medium">Tools</p>
+        <HugeiconsIcon icon={currentTool.icon} />
+        <p className="text-zinc-400 font-medium">{currentTool.name} SETTINGS</p>
       </div>
       <div className="bg-accent/50 border-2 border-border w-full flex-1  py-7 px-6">
         {/* Selection Mode Settings */}
-        <div className="space-y-6 hidden">
+        <div
+          className={`space-y-6 ${currentTool.name !== "SELECT" && "hidden"}`}
+        >
           <div className="space-y-2">
             <p className="text-zinc-400 font-medium text-xs">SELECTION</p>
             <p className="text-zinc-400 font-medium text-sm">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam
-              consequuntur velit labore incidunt voluptas, magni, consectetur
-              tempore eaque alias placeat ut soluta voluptatem excepturi
-              necessitatibus temporibus nulla commodi at suscipit?
+              Select elements to modify their properties or reposition them on
+              the canvas.
             </p>
           </div>
           <Separator />
@@ -58,7 +60,7 @@ export default function ToolPanelSidebar() {
           </div>
         </div>
         {/* Text Mode Settings */}
-        <div className="space-y-6 hidden">
+        <div className={`space-y-6 ${currentTool.name !== "TEXT" && "hidden"}`}>
           <div className="space-y-2">
             <p className="text-zinc-400 font-medium text-xs">FONT FAMILY</p>
 
@@ -127,7 +129,9 @@ export default function ToolPanelSidebar() {
           </div>
         </div>
         {/* Highlight Mode Settings */}
-        <div className="space-y-6 hidden">
+        <div
+          className={`space-y-6 ${currentTool.name !== "HIGHLIGHT" && "hidden"}`}
+        >
           <div className="space-y-2">
             <p className="text-zinc-400 font-medium text-xs">COLOR PALETTE</p>
 
@@ -149,7 +153,9 @@ export default function ToolPanelSidebar() {
           </div>
         </div>
         {/* Signature Mode Settings */}
-        <div className="space-y-6">
+        <div
+          className={`space-y-6 ${currentTool.name !== "SIGNATURE" && "hidden"}`}
+        >
           <div className="space-y-2">
             <Button variant={"outline"} size={"lg"} className="w-full">
               Place Signature

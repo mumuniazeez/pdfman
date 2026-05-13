@@ -4,10 +4,8 @@ import ToolbarProvider from "~/contexts/ToolbarProvider";
 
 export default function editor() {
   return (
-    <>
-      <ToolbarProvider>
-        <Outlet />
-      </ToolbarProvider>
-    </>
+    <ToolbarProvider>
+      <Outlet />
+    </ToolbarProvider>
   );
 }

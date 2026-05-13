@@ -7,7 +7,7 @@ import {
 import type { IconSvgElement } from "@hugeicons/react";
 import React, { createContext, useContext, useState } from "react";
 
-type ToolName = "SELECT" | "TEXT" | "HIGHLIGHT" | "SIGN";
+type ToolName = "SELECT" | "TEXT" | "HIGHLIGHT" | "SIGNATURE";
 
 type Tool = {
   name: ToolName;
@@ -15,27 +15,24 @@ type Tool = {
 };
 
 export interface ToolbarContext {
-  currentTool: ToolName;
-  setCurrentTool: (toolName: ToolName) => void;
+  currentTool: Tool;
+  setCurrentTool: (tool: Tool) => void;
   tools: Tool[];
 }
 
 const ToolbarContext = createContext<ToolbarContext>({
-  currentTool: "SELECT",
+  currentTool: { name: "SELECT", icon: Cursor },
   tools: [],
   setCurrentTool: () => {},
 });
 
-export const useToolbarContext = useContext(ToolbarContext);
+export const useToolbarContext = () => useContext(ToolbarContext);
 
 export default function ToolbarProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [currentTool, setCurrentTool] =
-    useState<ToolbarContext["currentTool"]>("SELECT");
-
   const tools: ToolbarContext["tools"] = [
     {
       name: "SELECT",
@@ -50,10 +47,14 @@ export default function ToolbarProvider({
       icon: Highlighter,
     },
     {
-      name: "SIGN",
+      name: "SIGNATURE",
       icon: Pen02Icon,
     },
   ];
+  const [currentTool, setCurrentTool] = useState<ToolbarContext["currentTool"]>(
+    tools[0],
+  );
+
   return (
     <ToolbarContext.Provider value={{ currentTool, setCurrentTool, tools }}>
       {children}
