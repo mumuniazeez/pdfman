@@ -58,7 +58,7 @@ export default function ToolPanelSidebar() {
           </div>
         </div>
         {/* Text Mode Settings */}
-        <div className="space-y-6">
+        <div className="space-y-6 hidden">
           <div className="space-y-2">
             <p className="text-zinc-400 font-medium text-xs">FONT FAMILY</p>
 
@@ -124,6 +124,36 @@ export default function ToolPanelSidebar() {
                 ></Button>
               ))}
             </div>
+          </div>
+        </div>
+        {/* Highlight Mode Settings */}
+        <div className="space-y-6 hidden">
+          <div className="space-y-2">
+            <p className="text-zinc-400 font-medium text-xs">COLOR PALETTE</p>
+
+            <div className="grid grid-cols-5 gap-2">
+              {[1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
+                <Button
+                  key={item}
+                  variant={item === 1 ? "secondary" : "outline"}
+                  size={"icon-lg"}
+                  className={`w-full h-12 ${item === 1 ? "border-primary border" : ""}`}
+                ></Button>
+              ))}
+            </div>
+          </div>
+          <div className="space-y-2">
+            <p className="text-zinc-400 font-medium text-xs">OPACITY</p>
+
+            <Input type="range" className="accent-primary" />
+          </div>
+        </div>
+        {/* Signature Mode Settings */}
+        <div className="space-y-6">
+          <div className="space-y-2">
+            <Button variant={"outline"} size={"lg"} className="w-full">
+              Place Signature
+            </Button>
           </div>
         </div>
       </div>
