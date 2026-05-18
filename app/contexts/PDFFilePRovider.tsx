@@ -1,3 +1,4 @@
+import type { PDFDocumentProxy } from "pdfjs-dist";
 import React, {
   createContext,
   useContext,
@@ -10,23 +11,36 @@ import { useNavigate } from "react-router";
 type PDFFile = File | File[];
 
 export interface PDFFileContext {
+  pdfDocument: PDFDocumentProxy | null;
+  setPdfDocument: (pdf: PDFDocumentProxy) => void;
   currentPage: number;
   setCurrentPage: (page: number) => void;
+  totalPage: number;
+  setTotalPage: (page: number) => void;
   canvasRef: React.RefObject<HTMLCanvasElement | null> | null;
   fileBlobUrl: string;
   setFileBlobUrl: (url: string) => void;
   handleUpload: (file: PDFFile) => void;
-  loadPDF: (url: string) => Promise<void>;
+  loadPDF: (url: string) => Promise<PDFDocumentProxy>;
+  loadPage: (
+    pageNumber: number,
+    pdfDocument: PDFDocumentProxy,
+  ) => Promise<void>;
 }
 
 const PDFFileContext = createContext<PDFFileContext>({
+  pdfDocument: null,
+  setPdfDocument: () => {},
   currentPage: 1,
   setCurrentPage: () => {},
+  totalPage: 1,
+  setTotalPage: () => {},
   canvasRef: null,
   fileBlobUrl: "",
   setFileBlobUrl: () => {},
   handleUpload: () => {},
-  loadPDF: () => Promise.resolve(),
+  loadPDF: () => Promise.resolve() as unknown as Promise<PDFDocumentProxy>,
+  loadPage: () => Promise.resolve(),
 });
 
 export const usePDFFileContext = () => useContext(PDFFileContext);
@@ -39,6 +53,8 @@ export default function PDFFilePRovider({
   children: React.ReactNode;
 }) {
   const navigate = useNavigate();
+  const [pdfDocument, setPdfDocument] =
+    useState<PDFFileContext["pdfDocument"]>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -61,15 +77,22 @@ export default function PDFFilePRovider({
   };
 
   const loadPDF = async (url: string) => {
-    if (!canvasRef.current) return;
-
     const pdfJsLibrary = await import("pdfjs-dist");
     pdfJsLibrary.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfJsLibrary.version}/build/pdf.worker.min.mjs`;
     const pdf = await pdfJsLibrary.getDocument({
       url,
     }).promise;
 
-    const page = await pdf.getPage(currentPage);
+    return pdf;
+  };
+
+  const loadPage = async (
+    pageNumber: number,
+    pdfDocument: PDFDocumentProxy,
+  ) => {
+    if (!canvasRef.current) return;
+
+    const page = await pdfDocument.getPage(pageNumber);
 
     const outputScale = window.devicePixelRatio || 1;
 
@@ -92,6 +115,7 @@ export default function PDFFilePRovider({
       transform: transform!,
       canvas,
     }).promise;
+    setCurrentPage(pageNumber);
   };
 
   useEffect(() => {
@@ -101,13 +125,18 @@ export default function PDFFilePRovider({
   return (
     <PDFFileContext.Provider
       value={{
+        pdfDocument,
+        setPdfDocument,
         currentPage,
         setCurrentPage,
+        totalPage,
+        setTotalPage,
         canvasRef,
         fileBlobUrl,
         handleUpload,
         setFileBlobUrl,
         loadPDF,
+        loadPage,
       }}
     >
       {children}

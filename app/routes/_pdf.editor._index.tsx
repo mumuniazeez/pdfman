@@ -10,7 +10,15 @@ import ToolPanelSidebar from "~/components/PDFeditor/ToolPanelSidebar";
 import { Button } from "~/components/ui/button";
 import PDFFilePRovider, { usePDFFileContext } from "~/contexts/PDFFilePRovider";
 export default function EditorPage() {
-  const { fileBlobUrl, loadPDF } = usePDFFileContext();
+  const {
+    fileBlobUrl,
+    loadPDF,
+    currentPage,
+    loadPage,
+    pdfDocument,
+    totalPage,
+    setPdfDocument,
+  } = usePDFFileContext();
 
   const navigate = useNavigate();
 
@@ -19,8 +27,22 @@ export default function EditorPage() {
       navigate("/");
       return;
     }
-    loadPDF(fileBlobUrl);
+    const loadDocument = async () => {
+      const pdf = await loadPDF(fileBlobUrl);
+      setPdfDocument(pdf);
+      loadPage(currentPage, pdf!);
+    };
+    loadDocument();
   }, [fileBlobUrl]);
+
+  const goToPrevPage = async () => {
+    if (currentPage === 1) return;
+    await loadPage(currentPage - 1, pdfDocument!);
+  };
+  const goToNextPage = async () => {
+    if (currentPage === totalPage) return;
+    await loadPage(currentPage + 1, pdfDocument!);
+  };
 
   return (
     <div className="h-screen overflow-hidden flex flex-col">
@@ -36,11 +58,23 @@ export default function EditorPage() {
         <div className="overflow-hidden w-[60%]">
           <div className="w-full h-full overflow-y-auto flex flex-col items-center">
             <div className="w-[20%] bg-zinc-900 border-2 flex items-center gap-x-2 justify-between mt-10 sticky top-10 p-0.5">
-              <Button variant={"ghost"} size={"icon-sm"}>
+              <Button
+                variant={"ghost"}
+                size={"icon-sm"}
+                onClick={goToPrevPage}
+                disabled={currentPage === 1}
+              >
                 <HugeiconsIcon icon={ArrowLeft} />
               </Button>
-              <p className="font-medium text-xs">PAGE 1 OF 3</p>
-              <Button variant={"ghost"} size={"icon-sm"}>
+              <p className="font-medium text-xs">
+                PAGE {currentPage} OF {totalPage}
+              </p>
+              <Button
+                variant={"ghost"}
+                size={"icon-sm"}
+                onClick={goToNextPage}
+                disabled={currentPage === totalPage}
+              >
                 <HugeiconsIcon icon={ArrowRight} />
               </Button>
             </div>
