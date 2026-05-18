@@ -1,5 +1,5 @@
 import Header from "~/components/Header";
-import type { Route } from "./+types/_landing._index";
+import type { Route } from "./+types/_pdf._landing._index";
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
 import { Cursor, ShieldCheck, Text, Upload } from "@hugeicons/core-free-icons";
@@ -8,6 +8,9 @@ import { Separator } from "~/components/ui/separator";
 import type { Feature } from "~/components/FeatureCard";
 import FeatureCard from "~/components/FeatureCard";
 import Footer from "~/components/Footer";
+import ClientOnlyComponent from "~/components/ClientOnlyComponent";
+import { lazy, Suspense } from "react";
+const FileUpload = lazy(() => import("~/components/FileUpload"));
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -62,19 +65,13 @@ export default function Home({ loaderData: features }: Route.ComponentProps) {
         </section>
         {/* Drop/upload file section */}
         <section className="flex items-center justify-center">
-          <div className="bg-accent border border-border w-150 flex items-center justify-center flex-col gap-y-5 py-20">
-            <div className="p-3 bg-background w-fit text-primary">
-              <HugeiconsIcon icon={Upload} size={34} />
-            </div>
-            <p className="font-bold">Drop PDF or Browse Device</p>
-            <div className="flex items-center gap-x-2 text-sm">
-              <p className=" text-zinc-400">MAX 50MB</p>
-              <Separator orientation="vertical" />
-              <Button variant={"link"} className="hover:no-underline font-bold">
-                USE SAMPLE
-              </Button>
-            </div>
-          </div>
+          <Suspense
+            fallback={
+              <div className="w-150 h-[316px] bg-accent animate-pulse"></div>
+            }
+          >
+            <FileUpload />
+          </Suspense>
         </section>
         {/* Features Section */}
         <section className="space-y-10">
