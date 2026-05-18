@@ -9,8 +9,10 @@ import {
 } from "@hugeicons/core-free-icons";
 import { Button } from "../ui/button";
 import ToolBar from "./ToolBar";
+import { usePDFFileContext } from "~/contexts/PDFFilePRovider";
 
 export default function EditorHeader() {
+  const { totalPage, file } = usePDFFileContext();
   return (
     <header className="px-3 py-2 border-border border-2 bg-accent/60">
       <div className="flex items-center justify-between">
@@ -23,8 +25,8 @@ export default function EditorHeader() {
           </div>
           <Separator orientation="vertical" />
           <div>
-            <h4 className="font-medium">PDF_File_Name.pdf</h4>
-            <p className="text-sm text-zinc-400">3 pages</p>
+            <h4 className="font-medium">{file?.name}</h4>
+            <p className="text-sm text-zinc-400">{totalPage} pages</p>
           </div>
         </div>
         <ToolBar />

@@ -17,6 +17,7 @@ export default function EditorPage() {
     loadPage,
     pdfDocument,
     totalPage,
+    setTotalPage,
     setPdfDocument,
   } = usePDFFileContext();
 
@@ -30,6 +31,7 @@ export default function EditorPage() {
     const loadDocument = async () => {
       const pdf = await loadPDF(fileBlobUrl);
       setPdfDocument(pdf);
+      setTotalPage(pdf.numPages);
       loadPage(currentPage, pdf!);
     };
     loadDocument();

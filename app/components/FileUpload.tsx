@@ -10,7 +10,11 @@ export default function FileUpload() {
   const { handleUpload } = usePDFFileContext();
 
   return (
-    <FileUploader handleChange={handleUpload} types={["pdf"]} maxSize={50}>
+    <FileUploader
+      handleChange={handleUpload as any}
+      types={["pdf"]}
+      maxSize={50}
+    >
       <div className="bg-accent border border-border w-150 flex items-center justify-center flex-col gap-y-5 py-20">
         <div className="p-3 bg-background w-fit text-primary">
           <HugeiconsIcon icon={Upload} size={34} />

@@ -8,9 +8,10 @@ import React, {
 } from "react";
 import { useNavigate } from "react-router";
 
-type PDFFile = File | File[];
+type PDFFile = File;
 
 export interface PDFFileContext {
+  file: PDFFile | null;
   pdfDocument: PDFDocumentProxy | null;
   setPdfDocument: (pdf: PDFDocumentProxy) => void;
   currentPage: number;
@@ -29,6 +30,7 @@ export interface PDFFileContext {
 }
 
 const PDFFileContext = createContext<PDFFileContext>({
+  file: null,
   pdfDocument: null,
   setPdfDocument: () => {},
   currentPage: 1,
@@ -60,11 +62,13 @@ export default function PDFFilePRovider({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [fileBlobUrl, setFileBlobUrl] =
     useState<PDFFileContext["fileBlobUrl"]>("");
+  const [file, setFile] = useState<PDFFileContext["file"]>(null);
 
   const handleUpload = (file: PDFFile) => {
     console.log(file);
     const url = getBlob(file);
     if (!url) return alert("Error uploading file");
+    setFile(file);
     setFileBlobUrl(url);
     console.log(url);
     navigate("/editor");
@@ -125,6 +129,7 @@ export default function PDFFilePRovider({
   return (
     <PDFFileContext.Provider
       value={{
+        file,
         pdfDocument,
         setPdfDocument,
         currentPage,
