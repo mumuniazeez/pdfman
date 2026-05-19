@@ -25,7 +25,9 @@ export default function EditorHeader() {
           </div>
           <Separator orientation="vertical" />
           <div>
-            <h4 className="font-medium">{file?.name}</h4>
+            <h4 className="font-medium max-w-60 text-wrap line-clamp-2">
+              {file?.name}
+            </h4>
             <p className="text-sm text-zinc-400">{totalPage} pages</p>
           </div>
         </div>

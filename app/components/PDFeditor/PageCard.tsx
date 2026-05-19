@@ -11,7 +11,7 @@ export default function PageCard({
   const { currentPage, loadPage, pdfDocument } = usePDFFileContext();
   return (
     <div
-      className="text-center space-y-3"
+      className="text-center space-y-3 cursor-pointer"
       onClick={() => loadPage(pageNumber, pdfDocument!)}
     >
       <img
