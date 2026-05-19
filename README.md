@@ -1,15 +1,15 @@
-# Welcome to PDFman!
+# Welcome to PDFman
 
-A modern, PDF document editor that allows you to edit, manipulate, and rearrange PDF documents.
+A modern, PDF document editor that allows you to edit (add text and signature annotations), manipulate, and rearrange PDF documents.
 
 ![Project Screenshot](./public/project_screenshot.png)
 
 ## Features
 
-- Add Text on top of the document
-- Add signature
-- Rearrange pages
-- Add new page and delete pages
+- Add text annotations on top of the document.
+- Add signature annotations on top of the document.
+- Rearrange pages of the document.
+- Add new page and delete pages.
 
 ## Getting Started
 
@@ -18,7 +18,7 @@ A modern, PDF document editor that allows you to edit, manipulate, and rearrange
 Install the dependencies:
 
 ```bash
-npm install
+pnpm install
 ```
 
 ### Development
@@ -26,7 +26,7 @@ npm install
 Start the development server with HMR:
 
 ```bash
-npm run dev
+pnpm run dev
 ```
 
 Your application will be available at `http://localhost:5173`.
@@ -36,12 +36,16 @@ Your application will be available at `http://localhost:5173`.
 Create a production build:
 
 ```bash
-npm run build
+pnpm run build
 ```
 
-## Styling
+## Contribution
 
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
+Contributions are welcome! Please feel free to open an issue or submit a pull request.
+
+## License
+
+This project is licensed under the terms of the [MIT License](./LICENSE).
 
 ---
 
