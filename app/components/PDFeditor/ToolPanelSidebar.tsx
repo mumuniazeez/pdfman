@@ -64,7 +64,7 @@ export default function ToolPanelSidebar() {
           <div className="space-y-2">
             <p className="text-zinc-400 font-medium text-xs">FONT FAMILY</p>
 
-            <Select>
+            <Select defaultValue="times-new-roman">
               <SelectTrigger className="w-full">
                 <SelectValue placeholder="Select a Font" />
               </SelectTrigger>

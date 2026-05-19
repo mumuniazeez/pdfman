@@ -1,10 +1,11 @@
-import React from "react";
+import { useAnnotationContext } from "~/contexts/AnnotationProvider";
 import { usePDFFileContext } from "~/contexts/PDFFilePRovider";
 import { useToolbarContext } from "~/contexts/ToolbarProvider";
 
 export default function PageViewer() {
   const { currentTool } = useToolbarContext();
   const { canvasRef } = usePDFFileContext();
+  const { annotations } = useAnnotationContext();
   return (
     <div className="relative">
       {/* PDF Display Canvas */}
@@ -24,7 +25,44 @@ export default function PageViewer() {
         }}
       >
         {/* Overlay item */}
-        {/* <div className="relative top-30 left-10 bg-red-500 w-50 h-50 cursor-move"></div> */}
+        {annotations.map((ann, idx) => {
+          switch (ann.type) {
+            case "text":
+              return (
+                <div
+                  className={`relative  text-black border border-dashed`}
+                  style={{
+                    top: `${ann.y}px`,
+                    left: `${ann.x}px`,
+                  }}
+                >
+                  <textarea
+                    className="w-full h-full resize-none border-none outline-none bg-transparent p-1"
+                    value={ann.content}
+                  />
+                </div>
+              );
+            case "signature":
+              return (
+                <div
+                  className={`relative`}
+                  style={{
+                    top: `${ann.y}px`,
+                    left: `${ann.x}px`,
+                  }}
+                >
+                  <img
+                    src={ann.imageSrc}
+                    alt={ann.type}
+                    width={ann.width}
+                    height={ann.height}
+                  />
+                </div>
+              );
+            default:
+              return <p>Nothing Here haha</p>;
+          }
+        })}
       </div>
     </div>
   );

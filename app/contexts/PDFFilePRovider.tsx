@@ -29,25 +29,14 @@ export interface PDFFileContext {
   ) => Promise<void>;
 }
 
-const PDFFileContext = createContext<PDFFileContext>({
-  file: null,
-  pdfDocument: null,
-  setPdfDocument: () => {},
-  currentPage: 1,
-  setCurrentPage: () => {},
-  totalPage: 1,
-  setTotalPage: () => {},
-  canvasRef: null,
-  fileBlobUrl: "",
-  setFileBlobUrl: () => {},
-  handleUpload: () => {},
-  loadPDF: () => Promise.resolve() as unknown as Promise<PDFDocumentProxy>,
-  loadPage: () => Promise.resolve(),
-});
+const PDFFileContext = createContext<PDFFileContext | undefined>(undefined);
 
-export const usePDFFileContext = () => useContext(PDFFileContext);
+export const usePDFFileContext = () => {
+  const context = useContext(PDFFileContext);
+  if (!context) throw new Error("usePDFFileContext not in PDFFileContext");
 
-// https://goodfoodstore.com/wp-content/uploads/2024/10/Rice.pdf
+  return context;
+};
 
 export default function PDFFilePRovider({
   children,

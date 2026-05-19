@@ -7,7 +7,7 @@ import {
 import type { IconSvgElement } from "@hugeicons/react";
 import React, { createContext, useContext, useState } from "react";
 
-type ToolName = "SELECT" | "TEXT" | "HIGHLIGHT" | "SIGNATURE";
+type ToolName = "SELECT" | "TEXT" | "SIGNATURE";
 
 type Tool = {
   name: ToolName;
@@ -20,13 +20,14 @@ export interface ToolbarContext {
   tools: Tool[];
 }
 
-const ToolbarContext = createContext<ToolbarContext>({
-  currentTool: { name: "SELECT", icon: Cursor },
-  tools: [],
-  setCurrentTool: () => {},
-});
+const ToolbarContext = createContext<ToolbarContext | undefined>(undefined);
 
-export const useToolbarContext = () => useContext(ToolbarContext);
+export const useToolbarContext = () => {
+  const context = useContext(ToolbarContext);
+  if (!context) throw new Error("useToolbarContext not in ToolbarContext");
+
+  return context;
+};
 
 export default function ToolbarProvider({
   children,
@@ -42,10 +43,10 @@ export default function ToolbarProvider({
       name: "TEXT",
       icon: Text,
     },
-    {
-      name: "HIGHLIGHT",
-      icon: Highlighter,
-    },
+    // {
+    //   name: "HIGHLIGHT",
+    //   icon: Highlighter,
+    // },
     {
       name: "SIGNATURE",
       icon: Pen02Icon,
