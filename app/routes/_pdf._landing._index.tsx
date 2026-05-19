@@ -1,14 +1,10 @@
 import Header from "~/components/Header";
 import type { Route } from "./+types/_pdf._landing._index";
 import { Badge } from "~/components/ui/badge";
-import { Button } from "~/components/ui/button";
 import { Cursor, ShieldCheck, Text, Upload } from "@hugeicons/core-free-icons";
-import { HugeiconsIcon } from "@hugeicons/react";
-import { Separator } from "~/components/ui/separator";
 import type { Feature } from "~/components/FeatureCard";
 import FeatureCard from "~/components/FeatureCard";
 import Footer from "~/components/Footer";
-import ClientOnlyComponent from "~/components/ClientOnlyComponent";
 import { lazy, Suspense } from "react";
 const FileUpload = lazy(() => import("~/components/FileUpload"));
 

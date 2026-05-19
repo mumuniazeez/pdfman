@@ -46,6 +46,15 @@ export default function EditorPage() {
     await loadPage(currentPage + 1, pdfDocument!);
   };
 
+  // TODO: Work on a more advance looking skeleton loading
+  if (!fileBlobUrl) {
+    return (
+      <>
+        <div className="h-screen w-screen animate-pulse bg-accent"></div>
+      </>
+    );
+  }
+
   return (
     <div className="h-screen overflow-hidden flex flex-col">
       {/* Header */}

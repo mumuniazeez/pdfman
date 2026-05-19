@@ -71,6 +71,8 @@ export default function AnnotationProvider({
   return (
     <AnnotationContext.Provider
       value={{ annotations, addAnnotation, updateAnnotation, deleteAnnotation }}
-    ></AnnotationContext.Provider>
+    >
+      {children}
+    </AnnotationContext.Provider>
   );
 }

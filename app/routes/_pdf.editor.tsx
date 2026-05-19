@@ -6,7 +6,8 @@ import ToolbarProvider from "~/contexts/ToolbarProvider";
 export default function editor() {
   useEffect(() => {
     window.addEventListener("beforeunload", (e) => {});
-  });
+  }, []);
+
   return (
     <AnnotationProvider>
       <ToolbarProvider>
